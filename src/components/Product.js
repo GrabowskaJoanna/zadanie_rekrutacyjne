@@ -1,47 +1,22 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const Product = () => {
-  const products = useSelector((state) => state.list.products);
+const Product = ({ product }) => {
+  const navigate = useNavigate();
+
+  const showDetails = (id) => {
+    navigate(`/products/${id}`);
+  };
+
   return (
     <div
-      style={{
-        display: "flex",
-        padding: "30px",
-        width: "96vw",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        gap: "80px",
-        backgroundColor: "rgba(0,0,0,0.1)",
-      }}
+      key={product.id}
+      className="product_card_item"
+      onClick={() => showDetails(product.id)}
     >
-      {products.map((product) => (
-        <div
-          style={{
-            width: "25%",
-            marginBottom: "16px",
-            display: "flex",
-            justifyContent: "center",
-            backgroundColor: "white",
-            flexDirection: "column",
-            alignItems: "center",
-            borderRadius: "8px",
-            border: "1px solid rgba(0,0,0,0.4)",
-            padding: "16px 32px",
-          }}
-        >
-          <img
-            src={product.image}
-            alt="image"
-            style={{
-              width: "200px",
-              height: "200px",
-            }}
-          />
-          <h3>{product.title}</h3>
-          <h4>Price: {product.price}</h4>
-        </div>
-      ))}
+      <img src={product.image} alt="image" />
+      <h3 className="card_item_title">{product.title}</h3>
+      <h4 className="card_item_price">Price: {product.price}</h4>
     </div>
   );
 };

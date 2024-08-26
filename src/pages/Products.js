@@ -3,6 +3,7 @@ import Navigation from "../navigation/Navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { setProducts } from "../store/listSlice";
 import Product from "../components/Product";
+import Loader from "../components/Loader";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,6 @@ const Products = () => {
       }
       const data = await response.json();
       dispatch(setProducts(data));
-      console.log(data);
     } catch (error) {
       console.error("Wystąpił problem z operacją pobierania:", error);
     } finally {
@@ -36,12 +36,16 @@ const Products = () => {
     <>
       <Navigation />
       {isLoading ? (
-        <p>Loading...</p>
+        <Loader />
       ) : (
-        <>
-          <h1>Products</h1>
-          <Product />
-        </>
+        <div className="container">
+          <h1 className="products_header">Products</h1>
+          <div className="product_card">
+            {products.map((product) => (
+              <Product product={product} />
+            ))}
+          </div>
+        </div>
       )}
     </>
   );
