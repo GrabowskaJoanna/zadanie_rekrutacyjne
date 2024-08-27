@@ -31,11 +31,13 @@ code {
     margin-top: 0;
     padding: 10px 0;
 }
+
 .products_header {
     margin-left: 50px;
     margin-top: 0;
     padding: 10px 0;
 }
+
 .details_header {
     margin-left: 50px;
     margin-top: 0;
@@ -63,20 +65,22 @@ code {
     border: 2px solid rgba(0, 0, 0, 0.4);
     padding: 16px 32px;
 
-  img {
-    width: 200px;
-    height: 200px;
-  }
+    img {
+        width: 200px;
+        height: 200px;
+    }
 }
 
 .product_card_item:hover {
     border-color: #8730c1;
     cursor: pointer;
+
     h3 {
         text-decoration: underline;
         color: #8730c1;
     }
 }
+
 .card_item_title, .card_item_price {
     text-align: center;
 }
@@ -95,6 +99,7 @@ code {
     }
 
 }
+
 .nav_page {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: white;
@@ -125,4 +130,35 @@ code {
 .nav_link_item:hover {
     border-bottom: 2px solid #8730c1;
     color: #8730c1;
+}
+
+.details_container {
+    margin-top: 50px;
+}
+
+.details_description {
+    padding: 80px 150px;
+}
+
+.details_info {
+    display: flex;
+    align-items: flex-start;
+    gap: 100px;
+    margin-left: 150px;
+
+    img {
+        width: 350px;
+        height: 350px;
+        border: 3px solid black;
+        border-radius: 5px;
+    }
+}
+
+.last_viewed_btn {
+    border-radius: 18px;
+    border: 1px solid #00000066;
+    padding: 12px;
+    height: 60px;
+    margin-top: 12px;
+    margin-left: 50px;
 }

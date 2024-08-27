@@ -9,32 +9,12 @@ const Details = ({ product }) => {
     if (product.id !== null) {
       dispatch(setLastViewedProduct(product.id));
     }
-  }, [product]);
+  }, [product, dispatch]);
   return (
     <>
-      <div
-        key={product.id}
-        className="details_container"
-        style={{ marginTop: "50px" }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "100px",
-            marginLeft: "150px",
-          }}
-        >
-          <img
-            src={product.image}
-            alt="image"
-            style={{
-              width: "350px",
-              height: "350px",
-              border: "3px solid black",
-              borderRadius: "5px",
-            }}
-          />
+      <div key={product.id} className="details_container">
+        <div className="details_info">
+          <img src={product.image} alt="image" />
           <div>
             <h2>{product.title}</h2>
             <p>
@@ -54,7 +34,7 @@ const Details = ({ product }) => {
             </p>
           </div>
         </div>
-        <div style={{ padding: "80px 150px" }}>
+        <div className="details_description">
           <b>Description: </b>
           <p>{product.description}</p>
         </div>

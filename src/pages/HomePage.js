@@ -16,22 +16,10 @@ const HomePage = () => {
   return (
     <>
       <Navigation />
-      <div
-        style={{ display: "flex", justifyContent: "space-between" }}
-        className="container"
-      >
+      <div className="container">
         <h1 className="homepage_header">Homepage</h1>
         {lastViewedProduct ? (
-          <button
-            style={{
-              borderRadius: "18px",
-              border: "1px solid #00000066",
-              padding: "12px",
-              height: "60px",
-              marginTop: "12px",
-            }}
-            onClick={goBackToProduct}
-          >
+          <button className="last_viewed_btn" onClick={goBackToProduct}>
             Back to last viewed product
           </button>
         ) : null}
