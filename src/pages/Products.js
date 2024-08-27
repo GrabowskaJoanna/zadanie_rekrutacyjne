@@ -10,10 +10,9 @@ const Products = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sort, setSort] = useState({
     field: null,
-    isAsc: true,
+    isAscending: true,
   });
   const products = useSelector((state) => state.list.products);
-  const [originalProducts, setOriginalProducts] = useState([]);
 
   const fetchProducts = async () => {
     try {
@@ -26,7 +25,6 @@ const Products = () => {
       }
       const data = await response.json();
       dispatch(setProducts(data));
-      setOriginalProducts(data);
     } catch (error) {
       console.error("Wystąpił problem z operacją pobierania:", error);
     } finally {
@@ -38,33 +36,53 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  function sortBy(field) {
-    const isAsc = sort.field === field ? !sort.isAsc : true;
-
-    const sortedProducts = products.slice().sort((a, b) => {
-      if (a[field] < b[field]) {
-        return isAsc ? -1 : 1;
+  const sortByDefault = () => {
+    const sortedByDefault = products.slice().sort((a, b) => {
+      if (a.id < b.id) {
+        return -1;
       }
-      if (a[field] > b[field]) {
-        return isAsc ? 1 : -1;
+      if (a.id > b.id) {
+        return 1;
       }
       return 0;
     });
+    dispatch(setProducts(sortedByDefault));
+  };
 
+  const sortBy = (field) => {
+    const isDefault = field === null;
+    if (isDefault) {
+      sortByDefault();
+    } else {
+      sortByField(field);
+    }
+  };
+  const sortByField = (field) => {
+    const isAscending = sort.field === field ? !sort.isAscending : true;
+
+    const sortedProducts = products.slice().sort((a, b) => {
+      if (a[field] < b[field]) {
+        return isAscending ? -1 : 1;
+      }
+      if (a[field] > b[field]) {
+        return isAscending ? 1 : -1;
+      }
+      return 0;
+    });
     dispatch(setProducts(sortedProducts));
     setSort({
       field,
-      isAsc,
+      isAscending,
     });
-  }
+  };
 
-  function resetSort() {
-    dispatch(setProducts(originalProducts));
+  const resetSort = () => {
     setSort({
       field: null,
-      isAsc: true,
+      isAscending: true,
     });
-  }
+    sortBy(null);
+  };
 
   return (
     <>
@@ -75,10 +93,12 @@ const Products = () => {
         <div className="container">
           <h1 className="products_header">Products</h1>
           <button onClick={() => sortBy("title")}>
-            Sort by title {sort.field === "title" && (sort.isAsc ? "↑" : "↓")}
+            Sort by title{" "}
+            {sort.field === "title" && (sort.isAscending ? "↑" : "↓")}
           </button>
           <button onClick={() => sortBy("price")}>
-            Sort by price {sort.field === "price" && (sort.isAsc ? "↑" : "↓")}
+            Sort by price{" "}
+            {sort.field === "price" && (sort.isAscending ? "↑" : "↓")}
           </button>
           {sort.field !== null && (
             <button onClick={resetSort}>Sort by default</button>
